@@ -1,0 +1,12 @@
+# dsh-session-todos bundle patch.
+#
+# Host half = lib/index.js (registers the webServer storage RPC route +
+# JSON file store under ~/.dsh/dsh-session-todos).
+# Client half = lib/client.js (floating todo panel in shell.overlay + the
+# per-session "unfinished todos" badge in the sidebar session list).
+#
+# Installed via the protected plugin flow (plugin_install / dshpm); the CLI
+# reconciles dsh.profile.bundles and mounts this insert row.
+- insert:
+    - id: dsh-session-todos
+      name: dsh-session-todos
