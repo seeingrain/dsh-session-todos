@@ -1,96 +1,83 @@
 # dsh-session-todos
 
-A session-scoped todo plugin for [DeepSeek Harness](https://github.com/deepseek-ai) (DSH).
-It adds a **floating todo panel** to the top-right of the chat window, stores todos
-**on the server** (so they follow you across devices), and marks sessions that still
-have open tasks with a **🎯 badge** in the sidebar.
+面向 [DeepSeek Harness](https://github.com/deepseek-ai)（DSH）的**会话内待办事项**插件。
+在聊天窗口右上角加一个**悬浮待办面板**，把待办列表**存储在服务器端**（跨设备同步），
+并在左侧会话列表中给**还有未完成任务**的会话打上一个 **🎯 徽章**。
 
-Pure plugin — no DSH source code is modified.
+纯插件 —— **不改 DSH 任何源码**。
 
 <p align="center">
-  <img src="docs/preview.png" alt="dsh-session-todos panel" width="720" />
+  <img src="docs/preview.png" alt="dsh-session-todos 面板" width="720" />
 </p>
 
-## Features
+## 功能特性
 
-- **Floating todo panel** (top-right of the chat window), collapsible to a single 🎯
-  icon with a smooth slide in/out animation.
-- **Per-task controls**
-  - checkbox — check/uncheck persists immediately
-  - multi-line text — long tasks wrap; **double-click** to edit inline (a
-    multi-line `<textarea>` that auto-grows); `Enter` commits, `Shift+Enter` adds a newline
-  - push-to-composer — append the task text to the message input
-  - delete — with a confirmation dialog
-  - **long-press and drag** to reorder — the dragged row follows your finger and
-    live-previews the drop position
-- **Header** shows a 🎯 icon and a `done/total` counter (e.g. `2/4`).
-- **Mobile friendly** — tapping outside the panel auto-collapses it.
-- **Server-side, cross-device storage** — one JSON file per session under
-  `~/.dsh/dsh-session-todos/`, so the same list is available from any device signed
-  in to the same DSH instance.
-- **Session-list badge** — sessions with unfinished todos show a 🎯 icon on the left
-  in the sidebar; it appears/disappears as you check tasks.
+- **右上角悬浮待办面板**：展开时浮在对话区右上角，可收起成一个 🎯 图标，带滑入/滑出动画。
+- **任务行**
+  - 勾选框 —— 勾选/取消即时保存
+  - 多行文字 —— 长任务自动折行；**双击**原地编辑（自动增高的多行 `<textarea>`）；
+    `Enter` 提交，`Shift+Enter` 换行
+  - 推送到发送框 —— 把任务文本**追加**到消息输入框
+  - 删除 —— 带确认弹窗
+  - **长按拖动排序** —— 被拖行跟手移动、实时预览落点
+- **标题栏**：🎯 图标 + `done/total` 计数（如 `2/4`）。
+- **移动端友好** —— 点击面板外自动收起。
+- **服务器端跨端存储** —— 每会话一个 JSON 文件，位于 `~/.dsh/dsh-session-todos/`，
+  任意设备登录同一 DSH 都能读到同一份列表。
+- **会话列表徽章** —— 有未完成待办的会话在侧边栏左侧显示 🎯，随勾选即时出现/消失。
 
-## Requirements
+## 要求
 
-- DeepSeek Harness (DSH) Web app — the plugin is a **bundle plugin** (host + client halves).
+- DeepSeek Harness（DSH）Web 端 —— 本插件为 **bundle 插件**（host + client 两半）。
 
-## Install
-
-The plugin is a DSH bundle plugin. Install it into a profile (e.g. `web`), then
-restart the DSH web service (or refresh the browser once it is loaded):
+## 安装
 
 ```bash
-# from a local path (wherever you cloned/placed the repo)
-dshpm install /absolute/path/to/dsh-session-todos --profile web
-# or, from a git URL:
-# dshpm install https://git.6.seeingrain.fun:6443/dsh/dsh-session-todos.git --profile web
+# 本地路径（你 clone/放置该仓库的位置）
+dshpm install /绝对路径/to/dsh-session-todos --profile web
+# 或从 git 地址安装：
+# dshpm install https://github.com/seeingrain/dsh-session-todos.git --profile web
 ```
 
-After the web service restarts, hard-refresh the browser (`Ctrl+Shift+R`).
+安装后重启 dsh-web，或强刷浏览器（`Ctrl+Shift+R`）。
 
-## Usage
+## 使用
 
-Open a session and click the 🎯 icon at the top-right of the chat window to expand
-the panel.
+打开一个会话，点击聊天窗口右上角的 🎯 展开面板。
 
-- Click **+** at the bottom to create a task.
-- **Double-click** a task's text to edit it (a multi-line textarea appears and grows
-  with the content). `Enter` saves, `Esc` cancels, `Shift+Enter` inserts a newline.
-- Check the box to mark a task done (the text is greyed out and its buttons are
-  disabled).
-- Use the **↗** button to append the task text to the message composer.
-- Use the **🗑** button to delete (a confirmation is shown).
-- **Press and hold** a task's text, then drag up/down to reorder; release to commit.
-- The **→** button collapses the panel back to the 🎯 icon.
-- On touch devices, tapping anywhere outside the panel collapses it.
+- 底部 **+** 新建任务。
+- **双击**任务文字进入编辑（出现多行 textarea，随内容增高）；`Enter` 保存、`Esc` 取消、
+  `Shift+Enter` 换行。
+- 勾选框标记完成（文字置灰、按钮禁用）。
+- **↗** 把任务文本追加到消息发送框。
+- **🗑** 删除（有确认弹窗）。
+- **长按**任务文字后上下拖动排序，松手提交。
+- **→** 收起面板回到 🎯 图标。
+- 触屏设备：点击面板外任意处自动收起。
 
-## How it works
+## 实现原理
 
-The plugin is split into a host half and a client half, both self-contained.
+插件分 host 与 client 两半，均为独立自包含。
 
-### Host half (`lib/index.js`)
+### Host 半边（`lib/index.js`）
 
-Registers a route on the DSH `webServer` and persists todos as JSON files:
+在 DSH 的 `webServer` 上注册路由，并把待办持久化为 JSON 文件：
 
-- `POST /dsh-session-todos/api/get` — `{ sessionId }` → `{ tasks }`
-- `POST /dsh-session-todos/api/save` — `{ sessionId, tasks }` → saves + returns the normalized list
-- `POST /dsh-session-todos/api/summary` — returns `{ sessions: [{ sessionId, hasUnfinished }] }`
+- `POST /dsh-session-todos/api/get` —— `{ sessionId }` → `{ tasks }`
+- `POST /dsh-session-todos/api/save` —— `{ sessionId, tasks }` → 保存并返回规范化列表
+- `POST /dsh-session-todos/api/summary` —— 返回 `{ sessions: [{ sessionId, hasUnfinished }] }`
 
-Storage directory: `~/.dsh/dsh-session-todos/<sessionId>.json` (created on first write).
+存储目录：`~/.dsh/dsh-session-todos/<sessionId>.json`（首次写入时创建）。
 
-### Client half (`lib/client.js`)
+### Client 半边（`lib/client.js`）
 
-- The floating panel is mounted on the `shell.overlay` slot and anchored to the chat
-  area's `[data-conversation-scroll]`.
-- Pushing a task to the composer uses the official input facade
-  (`conversation.input` → `setDraft`), appending to any existing draft.
-- The session-list badge is injected **without touching DSH source**: it locates
-  session rows with `[role="treeitem"]`, reads each session's id from the React 18
-  fiber, and injects/removes the 🎯 badge based on the todo state. If the fiber shape
-  ever changes, it degrades gracefully (the badge simply does not render).
+- 悬浮面板挂在 `shell.overlay` 插槽，锚定聊天区 `[data-conversation-scroll]`。
+- 推送任务到发送框使用官方输入门面（`conversation.input` → `setDraft`），**追加**到已有草稿。
+- 会话列表徽章**不改 DSH 源码**：用 `[role="treeitem"]` 定位会话行，从 React 18 fiber
+  读取每个会话的 id，再按待办状态注入/移除 🎯 徽章。若 fiber 结构未来改变，会优雅降级
+  （徽章不渲染，其余功能不受影响）。
 
-## Storage schema
+## 存储结构
 
 ```json
 {
@@ -103,14 +90,13 @@ Storage directory: `~/.dsh/dsh-session-todos/<sessionId>.json` (created on first
 }
 ```
 
-## Notes / limitations
+## 说明与限制
 
-- The panel's collapsed/expanded state is remembered in `localStorage` (not synced
-  across devices).
-- The session-row badge relies on React 18 internal fiber metadata; on a future major
-  React/DSH upgrade it may need re-testing (it degrades gracefully rather than breaking).
-- The storage path lives under the DSH home directory (`~/.dsh`).
+- 面板收起/展开状态存 `localStorage`（不同步到其它设备）。
+- 会话行徽章依赖 React 18 内部 fiber；未来 React/DSH 大版本升级后可能需要重新验证
+  （只会优雅降级，不会报错）。
+- 存储路径位于 DSH 主目录（`~/.dsh`）。
 
-## License
+## 许可证
 
 [MIT](LICENSE)
