@@ -6,9 +6,7 @@
 
 纯插件 —— **不改 DSH 任何源码**。
 
-<p align="center">
-  <img src="docs/preview.png" alt="dsh-session-todos 面板" width="720" />
-</p>
+![dsh-session-todos 面板](https://raw.githubusercontent.com/seeingrain/dsh-session-todos/main/docs/preview.png)
 
 ## 功能特性
 

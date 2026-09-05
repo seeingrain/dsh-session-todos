@@ -7,9 +7,7 @@ have open tasks with a **🎯 badge** in the sidebar.
 
 Pure plugin — no DSH source code is modified.
 
-<p align="center">
-  <img src="docs/preview.png" alt="dsh-session-todos panel" width="720" />
-</p>
+![dsh-session-todos panel](https://raw.githubusercontent.com/seeingrain/dsh-session-todos/main/docs/preview.png)
 
 ## Features
 
