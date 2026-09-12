@@ -1,5 +1,16 @@
 # Changelog
 
+## v1.2.0 - 2026-09-12
+
+- The header **📌 Pin** button is now ~80% of its previous size (26px→21px) so it sits
+  more discreetly next to the panel title
+- **Auto-collapse when a turn finishes**: when the session's run completes (the sent
+  message turns green), the panel now automatically collapses — even while pinned
+  (it un-pins itself first). It only fires on the busy→idle transition, so page
+  load / switching sessions / an already-idle session never collapse it. "Busy" = the
+  session is running a turn (official `running` flag), OR the composer still has queued
+  messages, OR the session has non-terminal background jobs
+
 ## v1.1.0 - 2026-09-12
 
 - Removed the header **→** collapse button
