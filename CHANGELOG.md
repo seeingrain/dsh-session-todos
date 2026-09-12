@@ -1,5 +1,13 @@
 # Changelog
 
+## v1.1.0 - 2026-09-12
+
+- Removed the header **→** collapse button
+- Auto-collapse on outside click now applies on **all platforms** (previously touch only)
+- New header **📌 Pin** toggle: while pinned the panel never auto-collapses; unpinned (default)
+  it always collapses when you click outside
+- Docs: add language switch links and an "especially for" line to both READMEs
+
 ## v1.0.0 - 2026-09-03
 
 - Initial public release

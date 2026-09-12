@@ -1,9 +1,14 @@
 # dsh-session-todos
 
+> 🇨🇳 中文: [README.md](README.md)
+
 A session-scoped todo plugin for [DeepSeek Harness](https://github.com/deepseek-ai) (DSH).
 It adds a **floating todo panel** to the top-right of the chat window, stores todos
 **on the server** (so they follow you across devices), and marks sessions that still
 have open tasks with a **🎯 badge** in the sidebar.
+
+**Especially for**: DSH users who push several things forward in one session and want the
+unfinished ones kept right next to the chat.
 
 Pure plugin — no DSH source code is modified.
 
@@ -22,7 +27,8 @@ Pure plugin — no DSH source code is modified.
   - **long-press and drag** to reorder — the dragged row follows your finger and
     live-previews the drop position
 - **Header** shows a 🎯 icon and a `done/total` counter (e.g. `2/4`).
-- **Mobile friendly** — tapping outside the panel auto-collapses it.
+- **Mobile friendly — auto-collapse everywhere** — clicking (or tapping) outside the panel
+  auto-collapses it; pin it with **📌** in the header to keep it open.
 - **Server-side, cross-device storage** — one JSON file per session under
   `~/.dsh/dsh-session-todos/`, so the same list is available from any device signed
   in to the same DSH instance.
@@ -60,8 +66,10 @@ the panel.
 - Use the **↗** button to append the task text to the message composer.
 - Use the **🗑** button to delete (a confirmation is shown).
 - **Press and hold** a task's text, then drag up/down to reorder; release to commit.
-- The **→** button collapses the panel back to the 🎯 icon.
-- On touch devices, tapping anywhere outside the panel collapses it.
+- The **📌** button pins / unpins the panel. While pinned it never auto-collapses and stays
+  expanded (across reloads and session switches).
+- While unpinned, clicking anywhere outside the panel collapses it (mouse and touch alike).
+- On touch devices you can also swipe the panel to the right to collapse it.
 
 ## How it works
 
@@ -103,8 +111,9 @@ Storage directory: `~/.dsh/dsh-session-todos/<sessionId>.json` (created on first
 
 ## Notes / limitations
 
-- The panel's collapsed/expanded state is remembered in `localStorage` (not synced
-  across devices).
+- The panel's collapsed/expanded state is remembered in `localStorage` (one entry per
+  session); the **📌 pinned** state is stored in `localStorage` too (one global entry).
+  Neither is synced across devices.
 - The session-row badge relies on React 18 internal fiber metadata; on a future major
   React/DSH upgrade it may need re-testing (it degrades gracefully rather than breaking).
 - The storage path lives under the DSH home directory (`~/.dsh`).

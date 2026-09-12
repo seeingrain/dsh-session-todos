@@ -1,7 +1,7 @@
 {
   "name": "dsh-session-todos",
-  "version": "1.0.0",
-  "description": "会话内待办事项：右上角悬浮待办面板（展开/收缩）+ 服务器端跨端存储（~/.dsh/dsh-session-todos）+ 会话列表未完成图标。纯插件，不改 DSH 源码。",
+  "version": "1.1.0",
+  "description": "会话内待办事项：右上角悬浮待办面板（展开/收起 + 📌 钉住不自动收起）+ 服务器端跨端存储（~/.dsh/dsh-session-todos）+ 会话列表未完成图标。纯插件，不改 DSH 源码。",
   "keywords": [
     "deepseek",
     "deepseek-harness",
