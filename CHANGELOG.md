@@ -4,12 +4,11 @@
 
 - The header **📌 Pin** button is now ~80% of its previous size (26px→21px) so it sits
   more discreetly next to the panel title
-- **Auto-collapse when a turn finishes**: when the session's run completes (the sent
-  message turns green), the panel now automatically collapses — even while pinned
-  (it un-pins itself first). It only fires on the busy→idle transition, so page
-  load / switching sessions / an already-idle session never collapse it. "Busy" = the
-  session is running a turn (official `running` flag), OR the composer still has queued
-  messages, OR the session has non-terminal background jobs
+- **Auto-collapse after push-to-composer**: clicking a task row's **⏎ send** button
+  (which pushes the task text into the message box and turns the task green) now makes
+  the panel automatically collapse so you can send the message right away — even while
+  pinned (it un-pins itself first). Copy / delete / done-toggle / sort / color do NOT
+  collapse the panel.
 
 ## v1.1.0 - 2026-09-12
 
