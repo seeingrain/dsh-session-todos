@@ -1,5 +1,15 @@
 # Changelog
 
+## v1.3.0 - 2026-10-08
+
+- **实时同步改走 WebSocket（`WS /dsh-session-todos/api/ws`），不再用 SSE。**
+  Browsers allow only ~6 concurrent HTTP/1.1 connections per destination; SSE streams
+  occupy one each, so two clients (e.g. two VS Code sidebars) could exhaust the pool and
+  stall every other request — including sending a message. WebSockets do not consume that
+  budget (measured: 14 websockets on one page, POSTs still fast; 11 SSE streams — POST times out).
+- The old `GET /events` SSE endpoint is **kept for compatibility**; new clients prefer the websocket.
+- Client reconnect uses exponential backoff (1s → 10s), and re-pulls the current session once on open.
+
 ## v1.2.0 - 2026-09-12
 
 - The header **📌 Pin** button is now ~80% of its previous size (26px→21px) so it sits
