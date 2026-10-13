@@ -69,6 +69,10 @@ the panel.
 - The **📌** button pins / unpins the panel. While pinned it never auto-collapses and stays
   expanded (across reloads and session switches).
 - While unpinned, clicking anywhere outside the panel collapses it (mouse and touch alike).
+- **Desktop `Esc` collapses** — with the panel expanded, press `Esc` to collapse it
+  (if pinned, it un-pins first). While the color palette is open, the first `Esc` only
+  closes the palette and the second collapses the panel. When focus is in an input
+  (editing a task / typing in the composer), `Esc` is left to that input.
 - On touch devices you can also swipe the panel to the right to collapse it.
 
 ## How it works
